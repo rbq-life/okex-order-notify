@@ -1,4 +1,4 @@
-package trade.wsure.top.websocket.api
+package okex.order.notify.okex.websocket.api
 
 class OkexWsApi {
 }

@@ -1,4 +1,4 @@
-package trade.wsure.top.websocket.entity
+package okex.order.notify.okex.entity
 
 enum class OkexWSEventEnum {
     login,

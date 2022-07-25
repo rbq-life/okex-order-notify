@@ -1,26 +1,26 @@
-package trade.wsure.top.websocket.listener
+package okex.order.notify.okex.websocket.listener
 
 import kotlinx.coroutines.*
+import okex.order.notify.okex.api.OkexApiCallException
+import okex.order.notify.okex.api.OkexException
+import okex.order.notify.okex.api.entity.InstType
+import okex.order.notify.okex.api.entity.account.BalanceRes
+import okex.order.notify.okex.api.entity.account.PositionRes
+import okex.order.notify.okex.api.entity.trade.OrdersEntity
+import okex.order.notify.okex.entity.*
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import trade.wsure.top.api.entity.InstType
-import trade.wsure.top.api.entity.account.BalanceRes
-import trade.wsure.top.api.entity.account.PositionRes
-import trade.wsure.top.api.entity.trade.OrdersEntity
-import trade.wsure.top.entity.ApiKeyInfo
-import trade.wsure.top.utils.JsonUtils.jsonToObjectOrNull
-import trade.wsure.top.utils.JsonUtils.objectToJson
-import trade.wsure.top.utils.Utils.log
-import trade.wsure.top.websocket.entity.*
-import trade.wsure.top.websocket.entity.channel.WsChannel
-import trade.wsure.top.websocket.entity.login.WsLoginReq
-import trade.wsure.top.websocket.entity.login.WsLoginRes
-import trade.wsure.top.websocket.entity.push.BalanceAndPositionRes
-import java.util.concurrent.atomic.AtomicInteger
+
+import okex.order.notify.okex.entity.channel.WsChannel
+import okex.order.notify.okex.entity.login.WsLoginReq
+import okex.order.notify.okex.entity.login.WsLoginRes
+import okex.order.notify.okex.entity.push.BalanceAndPositionRes
+import okex.order.notify.plugin.listener.OkexMemoryCacheEventListener
+import okex.order.notify.utils.JsonUtils.jsonToObjectOrNull
+import okex.order.notify.utils.JsonUtils.objectToJson
+import okex.order.notify.utils.Utils.log
 
 class OkexListener(private val apiKeyInfos: List<ApiKeyInfo>, val eventListener: PushEventListener = OkexMemoryCacheEventListener) : WebSocketListener() {
     lateinit var loginDeferred: CompletableDeferred<List<WsLoginReq>>
@@ -155,7 +155,7 @@ class OkexListener(private val apiKeyInfos: List<ApiKeyInfo>, val eventListener:
             }
         } catch (e: Exception) {
             log.error("sendPkg", e)
-            throw RuntimeException("fail!")
+            throw OkexException(akis.first(),e.message)
         }
     }
 

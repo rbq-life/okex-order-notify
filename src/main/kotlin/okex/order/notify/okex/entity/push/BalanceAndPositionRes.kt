@@ -1,4 +1,4 @@
-package trade.wsure.top.websocket.entity.push
+package okex.order.notify.okex.entity.push
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,7 +1,7 @@
-package trade.wsure.top.websocket.entity.channel
+package okex.order.notify.okex.entity.channel
 
 import kotlinx.serialization.Serializable
-import trade.wsure.top.api.entity.InstType
+import okex.order.notify.okex.api.entity.InstType
 
 @Serializable
 data class ChannelReq(

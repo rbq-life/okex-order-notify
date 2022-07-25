@@ -1,9 +1,9 @@
-package trade.wsure.top.websocket.listener
+package okex.order.notify.okex.websocket.listener
 
-import trade.wsure.top.api.entity.account.BalanceRes
-import trade.wsure.top.api.entity.account.PositionRes
-import trade.wsure.top.api.entity.trade.OrdersEntity
-import trade.wsure.top.websocket.entity.push.BalanceAndPositionRes
+import okex.order.notify.okex.api.entity.account.BalanceRes
+import okex.order.notify.okex.api.entity.account.PositionRes
+import okex.order.notify.okex.api.entity.trade.OrdersEntity
+import okex.order.notify.okex.entity.push.BalanceAndPositionRes
 
 abstract class PushEventListener {
     open fun onAccount(uid: String, balance: List<BalanceRes>) {

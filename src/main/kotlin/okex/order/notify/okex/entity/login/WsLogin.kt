@@ -1,10 +1,10 @@
-package trade.wsure.top.websocket.entity.login
+package okex.order.notify.okex.entity.login
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import trade.wsure.top.entity.ApiKeyInfo
-import trade.wsure.top.utils.Utils
-import trade.wsure.top.websocket.entity.OkexWSEventEnum
+import okex.order.notify.okex.entity.ApiKeyInfo
+import okex.order.notify.okex.entity.OkexWSEventEnum
+import okex.order.notify.utils.Utils
 
 
 @Serializable

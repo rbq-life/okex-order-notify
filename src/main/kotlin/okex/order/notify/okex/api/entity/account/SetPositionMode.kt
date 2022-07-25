@@ -1,6 +1,6 @@
-package okex.order.notify.api.entity.account
+package okex.order.notify.okex.api.entity.account
 
-import okex.order.notify.api.entity.PosMode
+import okex.order.notify.okex.api.entity.PosMode
 
 @kotlinx.serialization.Serializable
 data class SetPositionModeReq(

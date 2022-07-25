@@ -1,7 +1,7 @@
-package okex.order.notify.api
+package okex.order.notify.okex.api
 
-import okex.order.notify.api.entity.OkexRes
-import okex.order.notify.entity.ApiKeyInfo
+import okex.order.notify.okex.api.entity.OkexRes
+import okex.order.notify.okex.entity.ApiKeyInfo
 
 class OkexApiCallException(
     apiCall: OkexApiCall,

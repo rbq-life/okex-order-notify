@@ -1,8 +1,9 @@
-package okex.order.notify.api.entity.trade
+package okex.order.notify.okex.api.entity.trade
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import okex.order.notify.api.entity.*
+import okex.order.notify.okex.api.entity.*
 
 
 @Serializable

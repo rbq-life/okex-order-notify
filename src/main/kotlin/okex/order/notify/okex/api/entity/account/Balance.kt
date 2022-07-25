@@ -1,4 +1,4 @@
-package okex.order.notify.api.entity.account
+package okex.order.notify.okex.api.entity.account
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

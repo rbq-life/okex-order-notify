@@ -1,4 +1,4 @@
-package okex.order.notify.entity
+package okex.order.notify.okex.entity
 
 import kotlinx.serialization.Serializable
 

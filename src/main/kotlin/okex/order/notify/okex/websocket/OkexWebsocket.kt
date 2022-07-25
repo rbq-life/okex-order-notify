@@ -1,9 +1,7 @@
-package trade.wsure.top.websocket
+package okex.order.notify.okex.websocket
 
 import okhttp3.*
 import okio.ByteString
-import trade.wsure.top.entity.ApiKeyInfo
-import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 
 class OkexWebsocketWrapper(listener: WebSocketListener, url: String? = null) {
