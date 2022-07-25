@@ -5,11 +5,18 @@ plugins {
 
     id("net.mamoe.mirai-console") version "2.11.1"
 }
+mirai {
+    coreVersion = "2.11.1" // mirai-core version
+}
 
-group = "org.example"
+group = "okex.order.notify"
 version = "0.1.0"
 
 repositories {
-    maven("https://maven.aliyun.com/repository/public") // 阿里云国内代理仓库
+    mavenLocal()
     mavenCentral()
+}
+dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.3.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 }
