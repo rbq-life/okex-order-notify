@@ -5,3 +5,10 @@
 /test/
 /out/
 /run/
+logs/
+
+data/
+
+config/
+
+bots/

@@ -1,10 +1,7 @@
 package okex.order.notify.okex.api
 
-import okex.order.notify.api.entity.trade.*
 import okhttp3.Headers
-import okex.order.notify.okex.api.entity.OkexRes
-import okex.order.notify.api.entity.account.*
-import okex.order.notify.api.entity.trade.*
+import okex.order.notify.okex.entity.OkexRes
 import okex.order.notify.okex.entity.ApiKeyInfo
 import okex.order.notify.utils.JsonUtils.jsonToObjectOrNull
 import okex.order.notify.utils.JsonUtils.objectToJson
@@ -12,9 +9,8 @@ import okex.order.notify.utils.OkHttpUtils
 import okex.order.notify.utils.OkHttpUtils.toSerialNameUrlParams
 import okex.order.notify.utils.Utils.createSignature
 import okex.order.notify.utils.Utils.getTimestamp
-import okex.order.notify.okex.api.OkexApiCallException
-import okex.order.notify.okex.api.entity.account.*
-import okex.order.notify.okex.api.entity.trade.*
+import okex.order.notify.okex.entity.account.*
+import okex.order.notify.okex.entity.trade.*
 
 
 object OkexApi {

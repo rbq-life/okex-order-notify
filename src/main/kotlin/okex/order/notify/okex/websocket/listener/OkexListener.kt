@@ -1,12 +1,11 @@
 package okex.order.notify.okex.websocket.listener
 
 import kotlinx.coroutines.*
-import okex.order.notify.okex.api.OkexApiCallException
 import okex.order.notify.okex.api.OkexException
-import okex.order.notify.okex.api.entity.InstType
-import okex.order.notify.okex.api.entity.account.BalanceRes
-import okex.order.notify.okex.api.entity.account.PositionRes
-import okex.order.notify.okex.api.entity.trade.OrdersEntity
+import okex.order.notify.okex.entity.InstType
+import okex.order.notify.okex.entity.account.BalanceRes
+import okex.order.notify.okex.entity.account.PositionRes
+import okex.order.notify.okex.entity.trade.OrdersEntity
 import okex.order.notify.okex.entity.*
 import okhttp3.Response
 import okhttp3.WebSocket

@@ -17,6 +17,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
+    implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.3.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
 }

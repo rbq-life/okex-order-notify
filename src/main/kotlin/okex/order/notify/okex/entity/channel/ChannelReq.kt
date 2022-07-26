@@ -1,7 +1,7 @@
 package okex.order.notify.okex.entity.channel
 
 import kotlinx.serialization.Serializable
-import okex.order.notify.okex.api.entity.InstType
+import okex.order.notify.okex.entity.InstType
 
 @Serializable
 data class ChannelReq(

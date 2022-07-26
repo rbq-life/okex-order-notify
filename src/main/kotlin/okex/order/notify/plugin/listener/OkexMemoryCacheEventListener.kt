@@ -1,8 +1,8 @@
 package okex.order.notify.plugin.listener
 
-import okex.order.notify.okex.api.entity.account.BalanceRes
-import okex.order.notify.okex.api.entity.account.PositionRes
-import okex.order.notify.okex.api.entity.trade.OrdersEntity
+import okex.order.notify.okex.entity.account.BalanceRes
+import okex.order.notify.okex.entity.account.PositionRes
+import okex.order.notify.okex.entity.trade.OrdersEntity
 import okex.order.notify.okex.websocket.listener.PushEventListener
 import okex.order.notify.plugin.data.TradeOrderData
 
