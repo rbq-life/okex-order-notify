@@ -1,10 +1,10 @@
-package okex.order.notify.okex.api.entity.account
+package okex.order.notify.okex.entity.account
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import okex.order.notify.okex.api.entity.InstType
-import okex.order.notify.okex.api.entity.MgnMode
-import okex.order.notify.okex.api.entity.PosSide
+import okex.order.notify.okex.entity.InstType
+import okex.order.notify.okex.entity.MgnMode
+import okex.order.notify.okex.entity.PosSide
 
 
 /*
