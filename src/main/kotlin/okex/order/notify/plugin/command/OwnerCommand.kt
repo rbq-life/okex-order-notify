@@ -7,8 +7,8 @@ import net.mamoe.mirai.console.util.ConsoleExperimentalApi
 import net.mamoe.mirai.contact.User
 import net.mamoe.mirai.message.data.PlainText
 import okex.order.notify.PluginMain
+import okex.order.notify.plugin.Global
 import okex.order.notify.plugin.data.TradeNotifyConfig.owners
-import okex.order.notify.utils.PromiseUtils
 
 object OwnerCommand : CompositeCommand(
     PluginMain,
@@ -19,19 +19,16 @@ object OwnerCommand : CompositeCommand(
     @ConsoleExperimentalApi
     override val prefixOptional = true
 
-    private val promiseUtils = PromiseUtils(owners)
-
     @SubCommand("list")
     @Description("owner list")
     suspend fun CommandSender.list() {
-        this.permitteeId
         sendMessage(PlainText(owners.joinToString("\n")))
     }
 
     @SubCommand("add")
     @Description("add owner")
     suspend fun CommandSender.add(user: User) {
-        if(promiseUtils.isMaster(this.user)) {
+        if(Global.promiseUtils.isMaster(this.user)) {
             val success = owners.add(user.id)
             sendMessage(PlainText("添加${user.id}${if (success) "成功" else "失败"}"))
         }
@@ -40,7 +37,7 @@ object OwnerCommand : CompositeCommand(
     @SubCommand("del")
     @Description("del owner")
     suspend fun CommandSender.del(user: User) {
-        if (promiseUtils.isMaster(this.user)) {
+        if (Global.promiseUtils.isMaster(this.user)) {
             val success = owners.remove(user.id)
             sendMessage(PlainText("删除${user.id}${if (success) "成功" else "失败"}"))
         }

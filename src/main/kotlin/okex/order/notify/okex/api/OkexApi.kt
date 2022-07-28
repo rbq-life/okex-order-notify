@@ -6,16 +6,23 @@ import okex.order.notify.okex.entity.ApiKeyInfo
 import okex.order.notify.utils.JsonUtils.jsonToObjectOrNull
 import okex.order.notify.utils.JsonUtils.objectToJson
 import okex.order.notify.utils.OkHttpUtils
-import okex.order.notify.utils.OkHttpUtils.toSerialNameUrlParams
 import okex.order.notify.utils.Utils.createSignature
 import okex.order.notify.utils.Utils.getTimestamp
 import okex.order.notify.okex.entity.account.*
 import okex.order.notify.okex.entity.trade.*
+import okex.order.notify.utils.OkHttpUtils.Companion.toSerialNameUrlParams
+import java.net.ProxySelector
+import java.net.URI
 
 
 object OkexApi {
 
     const val OKEX_HOST = "https://www.okx.com"
+
+    val OK_HTTP_UTILS by lazy {
+        val proxy = ProxySelector.getDefault().select(URI(OKEX_HOST)).firstOrNull()
+        OkHttpUtils(proxy)
+    }
 
     fun createHeader(apiKeyInfo: ApiKeyInfo, signData: String): Headers {
         val timestamp = getTimestamp()
@@ -44,7 +51,7 @@ object OkexApi {
             val params = query?.toSerialNameUrlParams() ?: ""
             val path = apiCall.getPath() + params
             val headers = apiCall.createCurrentHeader(apiKeyInfo, path, "")
-            val res = OkHttpUtils.getJson(OKEX_HOST + path, headers).jsonToObjectOrNull<OkexRes<D>>()
+            val res = OK_HTTP_UTILS.getJson(OKEX_HOST + path, headers).jsonToObjectOrNull<OkexRes<D>>()
             if (res?.`data` == null || res.code != "0") {
                 throw OkexApiCallException(apiCall, params, apiKeyInfo, res, res?.data?.objectToJson())
             }
@@ -55,8 +62,8 @@ object OkexApi {
             val bodyMap = body?.objectToJson() ?: "{}"
             val path = apiCall.getPath()
             val headers = apiCall.createCurrentHeader(apiKeyInfo, path, bodyMap)
-            val reqBody = OkHttpUtils.addJson(bodyMap)
-            val res = OkHttpUtils.postJson(OKEX_HOST + path, reqBody, headers).jsonToObjectOrNull<OkexRes<D>>()
+            val reqBody = OK_HTTP_UTILS.addJson(bodyMap)
+            val res = OK_HTTP_UTILS.postJson(OKEX_HOST + path, reqBody, headers).jsonToObjectOrNull<OkexRes<D>>()
             if (res?.`data` == null || res.code != "0") {
                 throw OkexApiCallException(apiCall, bodyMap, apiKeyInfo, res, res?.data?.objectToJson())
             }

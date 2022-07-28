@@ -14,8 +14,9 @@ import net.mamoe.mirai.event.GlobalEventChannel
 import net.mamoe.mirai.event.events.*
 import net.mamoe.mirai.event.globalEventChannel
 import net.mamoe.mirai.utils.info
-import okex.order.notify.plugin.command.AddTrader
+import okex.order.notify.plugin.command.TraderCommand
 import okex.order.notify.plugin.command.OwnerCommand
+import okex.order.notify.plugin.command.SubscribeCommand
 import okex.order.notify.plugin.data.TradeNotifyConfig
 import okex.order.notify.plugin.data.TradeOrderData
 
@@ -42,9 +43,9 @@ object PluginMain : KotlinPlugin(
         TradeNotifyConfig.reload()
         TradeOrderData.reload()
         //配置文件目录 "${dataFolder.absolutePath}/"
+        SubscribeCommand.register()
         OwnerCommand.register()
-//        TraderCommand.register()
-        AddTrader.register()
+        TraderCommand.register()
         val eventChannel = GlobalEventChannel.parentScope(this)
         eventChannel.subscribeAlways<GroupMessageEvent>{
             //群消息

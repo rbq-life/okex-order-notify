@@ -24,20 +24,20 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
 
-object OkHttpUtils {
+class OkHttpUtils(var proxy: Proxy?) {
     private val MEDIA_JSON: MediaType = "application/json;charset=utf-8".toMediaType()
     private val MEDIA_STREAM: MediaType = "application/octet-stream".toMediaType()
     private val MEDIA_X_JSON: MediaType = "text/x-json".toMediaType()
     private val MEDIA_ENCRYPTED_JSON: MediaType = "application/encrypted-json;charset=UTF-8".toMediaType()
     private val MEDIA_TEXT: MediaType = "text/plain;charset=UTF-8".toMediaType()
-    private const val TIME_OUT = 10L
+    private val TIME_OUT = 10L
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .followRedirects(false)
             .followSslRedirects(false)
             .connectTimeout(10L, TimeUnit.SECONDS)
             .readTimeout(10L, TimeUnit.SECONDS)
-            .proxy(Proxy(Proxy.Type.HTTP, InetSocketAddress("127.0.0.1", 1082)))
+            .proxy(proxy)
             .build()
     }
 
@@ -54,7 +54,7 @@ object OkHttpUtils {
 
     @Throws(IOException::class)
     operator fun get(url: String, map: Map<String, String>): Response {
-        return OkHttpUtils[url, addHeaders(map)]
+        return this[url, addHeaders(map)]
     }
 
     @JvmOverloads
@@ -170,13 +170,13 @@ object OkHttpUtils {
 
     @Throws(IOException::class)
     fun getBytes(url: String, headers: Headers): ByteArray {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getBytes(response)
     }
 
     @Throws(IOException::class)
     fun getBytes(url: String, headers: Map<String, String>): ByteArray {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getBytes(response)
     }
 
@@ -191,13 +191,13 @@ object OkHttpUtils {
 
     @Throws(IOException::class)
     fun getByteStream(url: String, headers: Headers): InputStream {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getByteStream(response)
     }
 
     @Throws(IOException::class)
     fun getByteStream(url: String, headers: Map<String, String>): InputStream {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getByteStream(response)
     }
 
@@ -213,13 +213,13 @@ object OkHttpUtils {
 
     @Throws(IOException::class)
     fun getByteStr(url: String, headers: Headers): ByteString {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getByteStr(response)
     }
 
     @Throws(IOException::class)
     fun getByteStr(url: String, headers: Map<String, String>): ByteString {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getByteStr(response)
     }
 
@@ -234,25 +234,25 @@ object OkHttpUtils {
 
     @Throws(IOException::class)
     fun getStr(url: String, headers: Headers): String {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getStr(response)
     }
 
     @Throws(IOException::class)
     fun getStr(url: String, headers: Map<String, String>): String {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getStr(response)
     }
 
     @Throws(IOException::class)
     fun getStr(url: String): String {
-        val response = OkHttpUtils[url, emptyHeaders()]
+        val response = this[url, emptyHeaders()]
         return getStr(response)
     }
 
     @Throws(IOException::class)
     fun getJson(url: String, headers: Headers): JsonElement {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getJson(response)
     }
 
@@ -263,7 +263,7 @@ object OkHttpUtils {
 
     @Throws(IOException::class)
     fun getJson(url: String): JsonElement {
-        val response = OkHttpUtils[url, emptyHeaders()]
+        val response = this[url, emptyHeaders()]
         return getJson(response)
     }
 
@@ -400,7 +400,7 @@ object OkHttpUtils {
 
     @Throws(IOException::class)
     fun getJsonp(url: String, headers: Headers): JsonElement {
-        val response = OkHttpUtils[url, headers]
+        val response = this[url, headers]
         return getJsonp(response)
     }
 
@@ -572,17 +572,20 @@ object OkHttpUtils {
         return sb.toString()
     }
 
-    inline fun <reified T : Any> T.toSerialNameUrlParams(): String {
-        val props = T::class.memberProperties.associateBy { it.name }.filter { it.value.get(this) != null }
-        return if (props.isEmpty()) "" else "?" + props
-            .map {
-                val (k, v) = it
-                val serialName = v.findAnnotation<SerialName>()?.value ?: k
-                serialName to v.get(this)
-            }
-            .associate { it }
-            .map { "${it.key}=${it.value}" }
-            .joinToString("&")
+    companion object {
+        inline fun <reified T : Any> T.toSerialNameUrlParams(): String {
+            val props = T::class.memberProperties.associateBy { it.name }.filter { it.value.get(this) != null }
+            return if (props.isEmpty()) "" else "?" + props
+                .map {
+                    val (k, v) = it
+                    val serialName = v.findAnnotation<SerialName>()?.value ?: k
+                    serialName to v.get(this)
+                }
+                .associate { it }
+                .map { "${it.key}=${it.value}" }
+                .joinToString("&")
+        }
     }
+
 
 }
